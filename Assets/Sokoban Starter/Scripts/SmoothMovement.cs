@@ -11,9 +11,6 @@ public class SmoothMovement : Movement
     void Start()
     {
         GridManager.objects.Add(gameObject);
-
-        objectType = "smooth";
-        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = objectType;
     }
 
     // Update is called once per frame
@@ -49,13 +46,25 @@ public class SmoothMovement : Movement
                 }
             }
 
-            //player on left and object on the left can move / no object on left
-            if (gridPos.gridPosition.x + 1 <= PlayerMovement.maxX){
-                if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].Equals("player")
-                && (objectLeft.GetComponent<Movement>().left || !objectFound)) {
-                    left = true;
+            //chain check
+            for (int k = gridPos.gridPosition.x - 1; k < PlayerMovement.maxX - 1; k ++){
+                if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")){
+                    left = false;
                 }
-                else left = false;
+                else if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] == null){
+                    left = false;
+                    break;
+                }
+                else if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Player")){
+
+                    if (!objectFound || objectLeft.GetComponent<Movement>().left){
+                        left = true;
+                    }
+                    else left = false;
+                    break;
+                }
             }
         }
         else left = false;
@@ -89,15 +98,26 @@ public class SmoothMovement : Movement
                 }
             }
 
-            //player on left and object on the right can move / no object on right
-            if (gridPos.gridPosition.x - 1 >= PlayerMovement.minX){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].Equals("player")
-                && (objectRight.GetComponent<Movement>().right || !objectFound)) {
-                    right = true;
+            //chain check
+            for (int k = gridPos.gridPosition.x - 1; k > PlayerMovement.minX - 1; k --){
+                if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")){
+                    right = false;
                 }
-                else right = false;
+                else if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] == null){
+                    right = false;
+                    break;
+                }
+                else if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Player")){
+
+                    if (!objectFound || objectRight.GetComponent<Movement>().right){
+                        right = true;
+                    }
+                    else right = false;
+                    break;
+                }
             }
-            
 
         }
         else right = false;
@@ -131,13 +151,25 @@ public class SmoothMovement : Movement
                 }
             }
 
-            //player below and object above can move / no object above
-            if (gridPos.gridPosition.y + 1 <= PlayerMovement.maxY){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].Equals("player")
-                && (objectUp.GetComponent<Movement>().up || !objectFound)) {
-                    up = true;
+            //chain check
+            for (int k = gridPos.gridPosition.y - 1; k < PlayerMovement.maxY - 1; k ++){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1].CompareTag("Smooth")){
+                    up = false;
                 }
-                else up = false;
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1] == null){
+                    up = false;
+                    break;
+                }
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1].CompareTag("Player")){
+
+                    if (!objectFound || objectUp.GetComponent<Movement>().up){
+                        up = true;
+                    }
+                    else up = false;
+                    break;
+                }
             }
         }
         else up = false;
@@ -171,14 +203,27 @@ public class SmoothMovement : Movement
                 }
             }
 
-            //player above and object below can move / no object below
-            if (gridPos.gridPosition.y - 1 >= PlayerMovement.minY){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].Equals("player")
-                && (objectDown.GetComponent<Movement>().down || !objectFound)) {
-                    down = true;
+            //chain check
+            for (int k = gridPos.gridPosition.y - 1; k > PlayerMovement.minY - 1; k --){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1].CompareTag("Smooth")){
+                    down = false;
                 }
-                else down = false;
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1] == null){
+                    down = false;
+                    break;
+                }
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1].CompareTag("Player")){
+
+                    if (!objectFound || objectDown.GetComponent<Movement>().down){
+                        down = true;
+                    }
+                    else down = false;
+                    break;
+                }
             }
+
         }
         else down = false;
 

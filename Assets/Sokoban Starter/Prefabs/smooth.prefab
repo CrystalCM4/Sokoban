@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -111356943029332516}
   m_Layer: 0
   m_Name: smooth
-  m_TagString: Untagged
+  m_TagString: Smooth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -133,8 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0a55e79464c1ad478ae24f4d524c4c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridPos: {fileID: 4622493296140815988}
-  left: 0
-  right: 0
   up: 0
   down: 0
+  left: 0
+  right: 0
+  objectType: 
+  gridPos: {fileID: 4622493296140815988}

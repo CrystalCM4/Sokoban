@@ -27,9 +27,6 @@ public class PlayerMovement : Movement
         right = true;
         up = true;
         down = true;
-
-        objectType = "player";
-        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = objectType;
     }
 
     // Update is called once per frame
