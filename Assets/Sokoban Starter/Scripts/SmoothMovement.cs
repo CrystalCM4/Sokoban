@@ -1,108 +1,189 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class SmoothMovement : MonoBehaviour
+public class SmoothMovement : Movement
 {
-    public GridObject gridPos;
-
-    public bool left;
-    public bool right;
-    public bool up;
-    public bool down;
 
     // Start is called before the first frame update
     void Start()
     {
-        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = "smooth";
+        GridManager.objects.Add(gameObject);
+
+        objectType = "smooth";
+        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = objectType;
     }
 
     // Update is called once per frame
     void Update()
     {
-        print("left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
-
+        
         if (gridPos.gridPosition.x != PlayerMovement.minX) {
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].Equals("")){
-                //left is open 
-                left = true;
+
+            GameObject objectLeft = gameObject; //temporary object
+            bool objectFound = false;
+
+            for (int i = 0; i < GridManager.objects.Count; i++){
+                if (GridManager.objects[i] == gameObject) {
+
+                    //x and y of this object
+                    int x;
+                    x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
+                    int y;
+                    y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
+                    
+                    //get the object in x - 1 / left
+                    for (int j = 0; j < GridManager.objects.Count; j++){
+                        if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x - 1
+                        && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y){
+                            
+                            //object on the left
+                            objectLeft = GridManager.objects[j];
+                            objectFound = true;
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
-            else left = false;
+
+            //player on left and object on the left can move / no object on left
+            if (gridPos.gridPosition.x + 1 <= PlayerMovement.maxX){
+                if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].Equals("player")
+                && (objectLeft.GetComponent<Movement>().left || !objectFound)) {
+                    left = true;
+                }
+                else left = false;
+            }
         }
         else left = false;
 
         if (gridPos.gridPosition.x != PlayerMovement.maxX) {
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1 + 1, gridPos.gridPosition.y - 1].Equals("")){
-                //right is open 
-                right = true;
+
+            GameObject objectRight = gameObject; //temporary object
+            bool objectFound = false;
+
+            for (int i = 0; i < GridManager.objects.Count; i++){
+                if (GridManager.objects[i] == gameObject) {
+
+                    //x and y of this object
+                    int x;
+                    x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
+                    int y;
+                    y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
+                    
+                    //get the object in x + 1 / right
+                    for (int j = 0; j < GridManager.objects.Count; j++){
+                        if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x + 1
+                        && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y){
+                            
+                            //object on the right
+                            objectRight = GridManager.objects[j];
+                            objectFound = true;
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
-            else right = false;
+
+            //player on left and object on the right can move / no object on right
+            if (gridPos.gridPosition.x - 1 >= PlayerMovement.minX){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].Equals("player")
+                && (objectRight.GetComponent<Movement>().right || !objectFound)) {
+                    right = true;
+                }
+                else right = false;
+            }
+            
+
         }
         else right = false;
 
         if (gridPos.gridPosition.y != PlayerMovement.minY) {
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].Equals("")){
-                //up is open 
-                up = true;
-            }   
-            else up = false;
+           
+            GameObject objectUp = gameObject; //temporary object
+            bool objectFound = false;
+
+            for (int i = 0; i < GridManager.objects.Count; i++){
+                if (GridManager.objects[i] == gameObject) {
+
+                    //x and y of this object
+                    int x;
+                    x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
+                    int y;
+                    y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
+                    
+                    //get the object in y - 1 / up
+                    for (int j = 0; j < GridManager.objects.Count; j++){
+                        if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
+                        && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y - 1){
+                            
+                            //object above
+                            objectUp = GridManager.objects[j];
+                            objectFound = true;
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+
+            //player below and object above can move / no object above
+            if (gridPos.gridPosition.y + 1 <= PlayerMovement.maxY){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].Equals("player")
+                && (objectUp.GetComponent<Movement>().up || !objectFound)) {
+                    up = true;
+                }
+                else up = false;
+            }
         }
         else up = false;
 
         if (gridPos.gridPosition.y != PlayerMovement.maxY) {
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 + 1].Equals("")){
-                //down is open 
-                down = true;
+            
+            GameObject objectDown = gameObject; //temporary object
+            bool objectFound = false;
+
+            for (int i = 0; i < GridManager.objects.Count; i++){
+                if (GridManager.objects[i] == gameObject) {
+
+                    //x and y of this object
+                    int x;
+                    x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
+                    int y;
+                    y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
+                    
+                    //get the object in y + 1 / down
+                    for (int j = 0; j < GridManager.objects.Count; j++){
+                        if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
+                        && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y + 1){
+                            
+                            //object below
+                            objectDown = GridManager.objects[j];
+                            objectFound = true;
+                            break;
+                        }
+                    }
+                    break;
+                }
             }
-            else down = false;
+
+            //player above and object below can move / no object below
+            if (gridPos.gridPosition.y - 1 >= PlayerMovement.minY){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].Equals("player")
+                && (objectDown.GetComponent<Movement>().down || !objectFound)) {
+                    down = true;
+                }
+                else down = false;
+            }
         }
         else down = false;
 
-        if (Input.GetKeyDown(KeyCode.W) && up && !down) { //up
-            
-            //MAKE IT SO THAT IT DOESNT CHECK THE THING WHEN DOWN IS FALSE
-            //maybe if (down) {}
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 + 1].Equals("player")){;
-
-                //move the object in the 2d array
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] = "smooth";
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = "";
-
-                gridPos.gridPosition = new Vector2Int(gridPos.gridPosition.x, gridPos.gridPosition.y - 1);
-            }
-        }   
-        if (Input.GetKeyDown(KeyCode.S) && down && !up) { //down
-
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].Equals("player")){
-
-                //move the player in the 2d array
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] = "smooth";
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = "";
-
-                gridPos.gridPosition = new Vector2Int(gridPos.gridPosition.x, gridPos.gridPosition.y + 1);
-            }
-        }    
-        if (Input.GetKeyDown(KeyCode.A) && left && !right) { //left
-
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1 + 1, gridPos.gridPosition.y - 1].Equals("player")){
-
-                //move the player in the 2d array
-                GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] = "smooth";
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = "";
-
-                gridPos.gridPosition = new Vector2Int(gridPos.gridPosition.x - 1, gridPos.gridPosition.y);
-            }
-        }   
-        if (Input.GetKeyDown(KeyCode.D) && right && !left) { //right
-
-            if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].Equals("player")){
-
-                //move the player in the 2d array
-                GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] = "smooth";
-                GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = "";
-
-                gridPos.gridPosition = new Vector2Int(gridPos.gridPosition.x + 1, gridPos.gridPosition.y);
-            }
-        }    
+        
+        
+        //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
     }
 }
