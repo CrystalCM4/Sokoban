@@ -22,7 +22,14 @@ public class GridManager : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        
+        /*
+        for (int i = 0; i < objects.Count; i ++){
+            objects[i].GetComponent<Movement>().left = false;
+            objects[i].GetComponent<Movement>().right = false;
+            objects[i].GetComponent<Movement>().up = false;
+            objects[i].GetComponent<Movement>().down = false;
+        }
+        */
     }
 
     void LateUpdate()
@@ -56,6 +63,9 @@ public class GridManager : MonoBehaviour
     public static void MoveUp(int i){
         GridObject gridPos = objects[i].GetComponent<Movement>().gridPos;
 
+        if (gridPos.gridPosition.y - 1 - 1 >= PlayerMovement.minX){
+
+        }
         gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] = objects[i];
         if (gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] == objects [i]){
             gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = null;

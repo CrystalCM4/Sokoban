@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerMovement : Movement
 {
-    public Transform pos;
-
     public static int minY;
     public static int maxY;
     public static int minX;
@@ -27,6 +25,8 @@ public class PlayerMovement : Movement
         right = true;
         up = true;
         down = true;
+
+        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = gameObject;
     }
 
     // Update is called once per frame
