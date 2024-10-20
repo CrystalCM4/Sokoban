@@ -166,8 +166,8 @@ public class ClingyMovement : Movement
             }
 
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
-                && objectLeft.GetComponent<Movement>().left){       
-                down = true;
+                && objectDown.GetComponent<Movement>().down){       
+                    down = true;
                 if (!objectDown.GetComponent<Movement>().down){
                     down = false;
                 }

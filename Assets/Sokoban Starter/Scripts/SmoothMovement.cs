@@ -280,10 +280,13 @@ public class SmoothMovement : Movement
             //stickyLeft = true;
             if (gridPos.gridPosition.x != PlayerMovement.minX){
                 if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().left){
+                    left = true;
+                }
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
                 && !GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().left){
                     left = false;
                 }
-                else left = true;
             }
         }
 
@@ -291,10 +294,13 @@ public class SmoothMovement : Movement
             //stickyRight = true;
             if (gridPos.gridPosition.x != PlayerMovement.maxX){
                 if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().right){
+                    right = true;
+                }
+                else if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
                 && !GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().right){
                     right = false;
-                }
-                else right = true;
+                }      
             }
         }
 
@@ -303,9 +309,12 @@ public class SmoothMovement : Movement
             if (gridPos.gridPosition.y != PlayerMovement.minY){
                 if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
                 && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].GetComponent<Movement>().up){
+                    up = true;
+                }
+                else if(GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
+                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].GetComponent<Movement>().up){
                     up = false;
                 }
-                else up = true;
             }
             
         }
@@ -314,10 +323,13 @@ public class SmoothMovement : Movement
             //stickyDown = true;
             if (gridPos.gridPosition.y != PlayerMovement.maxY){
                 if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
+                && GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].GetComponent<Movement>().down){
+                    down = true;
+                }
+                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
                 && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].GetComponent<Movement>().down){
                     down = false;
                 }
-                else down = true;
             }
         }
         
