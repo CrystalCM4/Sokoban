@@ -7,13 +7,6 @@ using UnityEngine;
 public class SmoothMovement : Movement
 {
 
-    public bool stickyUp;
-    public bool stickyDown;
-    public bool stickyRight;
-    public bool stickyLeft;
-
-    public bool stickyFound = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,28 +16,6 @@ public class SmoothMovement : Movement
     // Update is called once per frame
     void Update()
     {
-        /*
-        //sticky shit
-        if (stickyUp && stickyFound){
-            up = true;
-        }
-        else up = false;
-
-        if (stickyDown && stickyFound){
-            down = true;
-        }
-        else down = false;
-
-        if (stickyLeft && stickyFound){
-            left = true;
-        }
-        else left = false;
-
-        if (stickyRight && stickyFound){
-            right = true;
-        }
-        else right = false;
-        */
 
         //real code starts here
         if (gridPos.gridPosition.x != PlayerMovement.minX) {
@@ -264,8 +235,6 @@ public class SmoothMovement : Movement
         
         //sticky check
         //look for sticky
-        
-
         for (int i = 0; i < GridManager.objects.Count; i++){
             if (GridManager.objects[i] == gameObject) {
 
@@ -291,6 +260,7 @@ public class SmoothMovement : Movement
                         
                         if (GridManager.objects[j].CompareTag("Sticky")){
                             stickyFound = true;
+                            //print("sticky found");
                             DetectSticky(j);
                         }
                         else {
@@ -301,25 +271,55 @@ public class SmoothMovement : Movement
             }
         }
 
-
         //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
     }
 
     public void DetectSticky(int j){
+        
         if (GridManager.objects[j].GetComponent<Movement>().left){
-            stickyLeft = true;
+            //stickyLeft = true;
+            if (gridPos.gridPosition.x != PlayerMovement.minX){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
+                && !GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().left){
+                    left = false;
+                }
+                else left = true;
+            }
         }
 
         if (GridManager.objects[j].GetComponent<Movement>().right){
-            stickyRight = true;
+            //stickyRight = true;
+            if (gridPos.gridPosition.x != PlayerMovement.maxX){
+                if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
+                && !GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().right){
+                    right = false;
+                }
+                else right = true;
+            }
         }
 
         if (GridManager.objects[j].GetComponent<Movement>().up){
-            stickyUp = true;
+            //stickyUp = true;
+            if (gridPos.gridPosition.y != PlayerMovement.minY){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
+                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].GetComponent<Movement>().up){
+                    up = false;
+                }
+                else up = true;
+            }
+            
         }
 
         if (GridManager.objects[j].GetComponent<Movement>().down){
-            stickyDown = true;
+            //stickyDown = true;
+            if (gridPos.gridPosition.y != PlayerMovement.maxY){
+                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
+                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].GetComponent<Movement>().down){
+                    down = false;
+                }
+                else down = true;
+            }
         }
+        
     }
 }

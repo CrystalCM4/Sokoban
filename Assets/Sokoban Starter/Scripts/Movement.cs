@@ -9,6 +9,12 @@ public class Movement : MonoBehaviour
     public bool left;
     public bool right;
 
+    public bool stickyUp;
+    public bool stickyDown;
+    public bool stickyLeft;
+    public bool stickyRight;
+    public bool stickyFound;
+
     public string objectType;
     public GridObject gridPos;
 

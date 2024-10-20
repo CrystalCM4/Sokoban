@@ -13,18 +13,13 @@ public class StickyMovement : Movement
     // Update is called once per frame
     void Update()
     {
-
-
-        left = false;
-        right = false;
-        up = false;
-        down = false;
+        
 
         //look for object
-        /*
+        
         bool objectFound = false;
         int objNum = 0;
-        */
+        
 
         for (int i = 0; i < GridManager.objects.Count; i++){
             if (GridManager.objects[i] == gameObject) { 
@@ -39,53 +34,83 @@ public class StickyMovement : Movement
                 for (int j = 0; j < GridManager.objects.Count; j++){
                     if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x - 1)
                     && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y){
-                        CheckState(j);
+                        //print("object left");
+                        objectFound = true;
+                        objNum = j;
+                        CheckState(objNum);
                     }
 
                     if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x + 1)
                     && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y){
-                        CheckState(j);
+                        //print("object right");
+                        objectFound = true;
+                        objNum = j;
+                        CheckState(objNum);
                     }
 
                     if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
                     && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y - 1)){
-                        CheckState(j);
+                        //print("object down");
+                        objectFound = true;
+                        objNum = j;
+                        CheckState(objNum);
                     }
 
                     if (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
                     && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y + 1)){
-                        CheckState(j);
+                        //print("object up");
+                        objectFound = true;
+                        objNum = j;
+                        CheckState(objNum);
                     }
                 }
             }
+        }
+
+        if (objectFound){
+            //CheckState(objNum);
         }
         
         //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
     }
 
     void LateUpdate(){
-        if (gridPos.gridPosition.x == PlayerMovement.minX){
-            left = false;
-        }
-        if (gridPos.gridPosition.x == PlayerMovement.maxX){
-            right = false;
-        }
-        if (gridPos.gridPosition.y == PlayerMovement.minY){
-            up = false;
-        }
-        if (gridPos.gridPosition.y == PlayerMovement.maxY){
-            down = false;
-        }
+        
     }
 
     public void CheckState(int j){
 
-        left = GridManager.objects[j].GetComponent<Movement>().left;
+        //edge check
+        if (gridPos.gridPosition.x != PlayerMovement.minX){
+            if (GridManager.objects[j].GetComponent<Movement>().left){
+                left = true;
+            }
+            else left = false;
+        }
+        else left = false;
 
-        right = GridManager.objects[j].GetComponent<Movement>().right;
+        if (gridPos.gridPosition.x != PlayerMovement.maxX){
+            if (GridManager.objects[j].GetComponent<Movement>().right){
+                right = true;
+            }
+            else right = false;
+        }
+        else right = false;
 
-        up = GridManager.objects[j].GetComponent<Movement>().up;
+        if (gridPos.gridPosition.y != PlayerMovement.minY){
+            if (GridManager.objects[j].GetComponent<Movement>().up){
+                up = true;
+            }
+            else up = false;
+        }
+        else up = false;
 
-        down = GridManager.objects[j].GetComponent<Movement>().down;
+        if (gridPos.gridPosition.y != PlayerMovement.maxY){
+            if (GridManager.objects[j].GetComponent<Movement>().down){
+                down = true;
+            }
+            else down = false;
+        }
+        else down = false;
     }
 }

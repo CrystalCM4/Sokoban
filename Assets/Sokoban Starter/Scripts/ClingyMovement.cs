@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class ClingyMovement : Movement
 {
-    public bool stickyUp;
-    public bool stickyDown;
-    public bool stickyRight;
-    public bool stickyLeft;
-
-    public bool stickyFound = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,34 +14,16 @@ public class ClingyMovement : Movement
     // Update is called once per frame
     void Update()
     {
-        /*
-        //sticky shit
-        if (stickyUp && stickyFound){
-            up = true;
-        }
-        else up = false;
-
-        if (stickyDown && stickyFound){
-            down = true;
-        }
-        else down = false;
-
-        if (stickyLeft && stickyFound){
-            left = true;
-        }
-        else left = false;
-
-        if (stickyRight && stickyFound){
-            right = true;
-        }
-        else right = false;
-        */
+        GameObject objectLeft = gameObject;
+        GameObject objectRight = gameObject;
+        GameObject objectUp = gameObject;
+        GameObject objectDown = gameObject;
 
         //real code starts here
         if (gridPos.gridPosition.x != PlayerMovement.minX) {
 
-            GameObject objectLeft = gameObject; //temporary object
-            bool objectFound = false;
+            //GameObject objectLeft = gameObject; //temporary object
+            //bool objectFound = false;
 
             for (int i = 0; i < GridManager.objects.Count; i++){
                 if (GridManager.objects[i] == gameObject) {
@@ -65,7 +41,7 @@ public class ClingyMovement : Movement
                             
                             //object on the left
                             objectLeft = GridManager.objects[j];
-                            objectFound = true;
+                            //objectFound = true;
                             break;
                         }
                     }
@@ -74,7 +50,7 @@ public class ClingyMovement : Movement
             }
 
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
-            && GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].CompareTag("Player")){
+            && objectLeft.GetComponent<Movement>().left){
                 left = true;
                 if (!objectLeft.GetComponent<Movement>().left){
                     left = false;
@@ -86,7 +62,7 @@ public class ClingyMovement : Movement
 
         if (gridPos.gridPosition.x != PlayerMovement.maxX) {
 
-            GameObject objectRight = gameObject; //temporary object
+            //GameObject objectRight = gameObject; //temporary object
 
             for (int i = 0; i < GridManager.objects.Count; i++){
                 if (GridManager.objects[i] == gameObject) {
@@ -112,7 +88,7 @@ public class ClingyMovement : Movement
             }
 
             if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
-            && GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].CompareTag("Player")){
+            && objectRight.GetComponent<Movement>().right){
                 right = true;
 
                 if (!objectRight.GetComponent<Movement>().right){
@@ -125,7 +101,7 @@ public class ClingyMovement : Movement
 
         if (gridPos.gridPosition.y != PlayerMovement.minY) {
            
-            GameObject objectUp = gameObject; //temporary object
+            //GameObject objectUp = gameObject; //temporary object
 
             for (int i = 0; i < GridManager.objects.Count; i++){
                 if (GridManager.objects[i] == gameObject) {
@@ -151,7 +127,7 @@ public class ClingyMovement : Movement
             }   
 
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].CompareTag("Player")){            
+                && objectUp.GetComponent<Movement>().up){            
                 up = true;
 
                 if (!objectUp.GetComponent<Movement>().up){
@@ -164,7 +140,7 @@ public class ClingyMovement : Movement
 
         if (gridPos.gridPosition.y != PlayerMovement.maxY) {
             
-            GameObject objectDown = gameObject; //temporary object
+            //GameObject objectDown = gameObject; //temporary object
 
             for (int i = 0; i < GridManager.objects.Count; i++){
                 if (GridManager.objects[i] == gameObject) {
@@ -190,7 +166,7 @@ public class ClingyMovement : Movement
             }
 
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].CompareTag("Player")){       
+                && objectLeft.GetComponent<Movement>().left){       
                 down = true;
                 if (!objectDown.GetComponent<Movement>().down){
                     down = false;
