@@ -9,6 +9,7 @@ public class ClingyMovement : Movement
     void Start()
     {
         GridManager.objects.Add(gameObject);
+        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = gameObject;
     }
 
     // Update is called once per frame
@@ -41,7 +42,6 @@ public class ClingyMovement : Movement
                             
                             //object on the left
                             objectLeft = GridManager.objects[j];
-                            //objectFound = true;
                             break;
                         }
                     }
@@ -175,64 +175,5 @@ public class ClingyMovement : Movement
             else down = false;
         }
         else down = false;
-
-        
-        //sticky check
-        //look for sticky
-        for (int i = 0; i < GridManager.objects.Count; i++){
-            if (GridManager.objects[i] == gameObject) {
-
-                //x and y of this object
-                int x;
-                x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
-                int y;
-                y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
-                
-                //get the object in x - 1 / left
-                for (int j = 0; j < GridManager.objects.Count; j++){
-                    if ((GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x - 1)
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y)
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x + 1)
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y)
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y - 1))
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y + 1))){
-                        
-                        if (GridManager.objects[j].CompareTag("Sticky")){
-                            stickyFound = true;
-                            DetectSticky(j);
-                        }
-                        else {
-                            stickyFound = false;
-                        } 
-                    }
-                }
-            }
-        }
-
-
-        //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
-    }
-
-    public void DetectSticky(int j){
-        if (GridManager.objects[j].GetComponent<Movement>().left){
-            stickyLeft = true;
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().right){
-            stickyRight = true;
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().up){
-            stickyUp = true;
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().down){
-            stickyDown = true;
-        }
     }
 }

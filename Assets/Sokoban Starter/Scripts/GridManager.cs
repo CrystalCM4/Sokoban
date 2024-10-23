@@ -29,55 +29,27 @@ public class GridManager : MonoBehaviour
     {
 
         for (int i = 0; i < objects.Count; i++){
-            
-            /*
-            if (objects[i].GetComponent<Movement>().stickyFound){
-                if (objects[i].GetComponent<Movement>().stickyUp) {
-                    if (Input.GetKeyDown(KeyCode.W)) {
-                        MoveUp(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().stickyDown) {
-                    if (Input.GetKeyDown(KeyCode.S)) {
-                        MoveDown(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().stickyLeft) {
-                    if (Input.GetKeyDown(KeyCode.A)) {
-                        MoveLeft(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().stickyRight) {
-                    if (Input.GetKeyDown(KeyCode.D)) {
-                        MoveRight(i);
-                    }   
-                }
+        
+            if (objects[i].GetComponent<Movement>().up) {
+                if (Input.GetKeyDown(KeyCode.W)) {
+                    MoveUp(i);
+                }   
             }
-            */
-
-            //else {
-                if (objects[i].GetComponent<Movement>().up) {
-                    if (Input.GetKeyDown(KeyCode.W)) {
-                        MoveUp(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().down) {
-                    if (Input.GetKeyDown(KeyCode.S)) {
-                        MoveDown(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().left) {
-                    if (Input.GetKeyDown(KeyCode.A)) {
-                        MoveLeft(i);
-                    }   
-                }
-                if (objects[i].GetComponent<Movement>().right) {
-                    if (Input.GetKeyDown(KeyCode.D)) {
-                        MoveRight(i);
-                    }   
-                }
-            //}
-            
+            if (objects[i].GetComponent<Movement>().down) {
+                if (Input.GetKeyDown(KeyCode.S)) {
+                    MoveDown(i);
+                }   
+            }
+            if (objects[i].GetComponent<Movement>().left) {
+                if (Input.GetKeyDown(KeyCode.A)) {
+                    MoveLeft(i);
+                }   
+            }
+            if (objects[i].GetComponent<Movement>().right) {
+                if (Input.GetKeyDown(KeyCode.D)) {
+                    MoveRight(i);
+                }   
+            }   
         }
     } 
 

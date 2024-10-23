@@ -47,7 +47,7 @@ public class SmoothMovement : Movement
                     break;
                 }
             }
-
+            
             //chain check
             for (int k = gridPos.gridPosition.x - 1; k < PlayerMovement.maxX - 1; k ++){
                 if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] != null
@@ -236,108 +236,6 @@ public class SmoothMovement : Movement
         }
         else down = false;
 
-        
-        //sticky check
-        //look for sticky
-        for (int i = 0; i < GridManager.objects.Count; i++){
-            if (GridManager.objects[i] == gameObject) {
-
-                //x and y of this object
-                int x;
-                x = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.x;
-                int y;
-                y = GridManager.objects[i].GetComponent<Movement>().gridPos.gridPosition.y;
-                
-                //get the object in x - 1 / left
-                for (int j = 0; j < GridManager.objects.Count; j++){
-                    if ((GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x - 1)
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y)
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == (x + 1)
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == y)
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y - 1))
-
-                    || (GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.x == x
-                    && GridManager.objects[j].GetComponent<Movement>().gridPos.gridPosition.y == (y + 1))){
-                        
-                        if (GridManager.objects[j].CompareTag("Sticky")){
-                            stickyFound = true;
-                            //print("sticky found");
-                            //DetectSticky(j);
-                        }
-                        else {
-                            stickyFound = false;
-                        } 
-                    }
-                }
-            }
-        }
-
         //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
     }
-
-    /*
-    public void DetectSticky(int j){
-        
-        if (GridManager.objects[j].GetComponent<Movement>().left){
-            //stickyLeft = true;
-            if (gridPos.gridPosition.x != PlayerMovement.minX){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().left){
-                    left = true;
-                }
-                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
-                && !GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().left){
-                    left = false;
-                }
-            }
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().right){
-            //stickyRight = true;
-            if (gridPos.gridPosition.x != PlayerMovement.maxX){
-                if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().right){
-                    right = true;
-                }
-                else if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
-                && !GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1].GetComponent<Movement>().right){
-                    right = false;
-                }      
-            }
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().up){
-            //stickyUp = true;
-            if (gridPos.gridPosition.y != PlayerMovement.minY){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
-                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].GetComponent<Movement>().up){
-                    up = true;
-                }
-                else if(GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
-                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1].GetComponent<Movement>().up){
-                    up = false;
-                }
-            }
-            
-        }
-
-        if (GridManager.objects[j].GetComponent<Movement>().down){
-            //stickyDown = true;
-            if (gridPos.gridPosition.y != PlayerMovement.maxY){
-                if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].GetComponent<Movement>().down){
-                    down = true;
-                }
-                else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
-                && !GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1].GetComponent<Movement>().down){
-                    down = false;
-                }
-            }
-        }
-        
-    }
-    */
 }
