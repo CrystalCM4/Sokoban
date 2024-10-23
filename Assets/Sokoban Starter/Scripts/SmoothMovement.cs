@@ -11,6 +11,7 @@ public class SmoothMovement : Movement
     void Start()
     {
         GridManager.objects.Add(gameObject);
+        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = gameObject;
     }
 
     // Update is called once per frame
@@ -59,7 +60,7 @@ public class SmoothMovement : Movement
                 }
                 else if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] != null
                 && GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Player")){
-
+                    
                     if (GridManager.gridPoint[gridPos.gridPosition.x + 1 - 1, gridPos.gridPosition.y - 1] != null
                     && (!objectFound || objectLeft.GetComponent<Movement>().left)){
                         left = true;
@@ -102,6 +103,7 @@ public class SmoothMovement : Movement
 
             //chain check
             for (int k = gridPos.gridPosition.x - 1; k > PlayerMovement.minX - 1; k --){
+
                 if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] != null
                 && GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")){
                     right = false;
@@ -115,9 +117,11 @@ public class SmoothMovement : Movement
 
                     if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
                     && (!objectFound || objectRight.GetComponent<Movement>().right)){
+                        
                         right = true;
                     }
                     else right = false;
+                    
                     break;
                 }
             }
@@ -261,7 +265,7 @@ public class SmoothMovement : Movement
                         if (GridManager.objects[j].CompareTag("Sticky")){
                             stickyFound = true;
                             //print("sticky found");
-                            DetectSticky(j);
+                            //DetectSticky(j);
                         }
                         else {
                             stickyFound = false;
@@ -274,6 +278,7 @@ public class SmoothMovement : Movement
         //print(gameObject.name + ": left: " + left + ", right: " + right + ", up: " + up + ", down: " + down);
     }
 
+    /*
     public void DetectSticky(int j){
         
         if (GridManager.objects[j].GetComponent<Movement>().left){
@@ -334,4 +339,5 @@ public class SmoothMovement : Movement
         }
         
     }
+    */
 }

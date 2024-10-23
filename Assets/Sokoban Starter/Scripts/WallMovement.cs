@@ -9,6 +9,7 @@ public class WallMovement : Movement
     void Start()
     {
         GridManager.objects.Add(gameObject);
+        GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1] = gameObject;
 
         left = false;
         right = false;

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Smooth
   - Sticky
+  - Wall
   layers:
   - Default
   - TransparentFX
