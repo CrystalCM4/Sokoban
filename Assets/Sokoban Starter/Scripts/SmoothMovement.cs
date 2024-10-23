@@ -51,7 +51,8 @@ public class SmoothMovement : Movement
             //chain check
             for (int k = gridPos.gridPosition.x - 1; k < PlayerMovement.maxX - 1; k ++){
                 if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] != null
-                && GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")){
+                && (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")
+                || GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1].CompareTag("Sticky"))){
                     left = false;
                 }
                 else if (GridManager.gridPoint[k + 1, gridPos.gridPosition.y - 1] == null){
@@ -105,7 +106,8 @@ public class SmoothMovement : Movement
             for (int k = gridPos.gridPosition.x - 1; k > PlayerMovement.minX - 1; k --){
 
                 if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] != null
-                && GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")){
+                && (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Smooth")
+                || GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1].CompareTag("Sticky"))){
                     right = false;
                 }
                 else if (GridManager.gridPoint[k - 1, gridPos.gridPosition.y - 1] == null){
@@ -161,7 +163,8 @@ public class SmoothMovement : Movement
             //chain check
             for (int k = gridPos.gridPosition.y - 1; k < PlayerMovement.maxY - 1; k ++){
                 if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1].CompareTag("Smooth")){
+                && (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1].CompareTag("Smooth")
+                || GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1].CompareTag("Sticky"))){
                     up = false;
                 }
                 else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k + 1] == null){
@@ -214,7 +217,8 @@ public class SmoothMovement : Movement
             //chain check
             for (int k = gridPos.gridPosition.y - 1; k > PlayerMovement.minY - 1; k --){
                 if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1] != null
-                && GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1].CompareTag("Smooth")){
+                && (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1].CompareTag("Smooth")
+                || GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1].CompareTag("Sticky"))){
                     down = false;
                 }
                 else if (GridManager.gridPoint[gridPos.gridPosition.x - 1, k - 1] == null){

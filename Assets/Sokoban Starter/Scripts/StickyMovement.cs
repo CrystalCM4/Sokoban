@@ -314,13 +314,14 @@ public class StickyMovement : Movement
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
                 && objectDown.GetComponent<Movement>().down){       
                 down = true;
-
+                
                 //if (gridPos.gridPosition.y != PlayerMovement.maxY) {
-                    if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y - 1 - 1] != null
+                    if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
                     && !objectDown.GetComponent<Movement>().down){
                         down = false;
                     }
                 //}
+                
             }
         }
         else down = false;

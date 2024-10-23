@@ -52,8 +52,8 @@ public class ClingyMovement : Movement
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1 - 1, gridPos.gridPosition.y - 1] != null
             && objectLeft.GetComponent<Movement>().left){
                 left = true;
-                if (!objectLeft.GetComponent<Movement>().left){
-                    left = false;
+                if (objectLeft.GetComponent<Movement>().CompareTag("Sticky")){
+                    //left = false;
                 }
             }
             else left = false;
@@ -91,8 +91,8 @@ public class ClingyMovement : Movement
             && objectRight.GetComponent<Movement>().right){
                 right = true;
 
-                if (!objectRight.GetComponent<Movement>().right){
-                    right = false;
+                if (objectRight.GetComponent<Movement>().CompareTag("Sticky")){
+                    //right = false;
                 }
             }
             else right = false;
@@ -130,8 +130,8 @@ public class ClingyMovement : Movement
                 && objectUp.GetComponent<Movement>().up){            
                 up = true;
 
-                if (!objectUp.GetComponent<Movement>().up){
-                    up = false;
+                if (objectUp.GetComponent<Movement>().CompareTag("Sticky")){
+                    //up = false;
                 }
             }
             else up = false;
@@ -168,8 +168,8 @@ public class ClingyMovement : Movement
             if (GridManager.gridPoint[gridPos.gridPosition.x - 1, gridPos.gridPosition.y + 1 - 1] != null
                 && objectDown.GetComponent<Movement>().down){       
                     down = true;
-                if (!objectDown.GetComponent<Movement>().down){
-                    down = false;
+                if (objectDown.GetComponent<Movement>().CompareTag("Sticky")){
+                    //down = false;
                 }
             }
             else down = false;
